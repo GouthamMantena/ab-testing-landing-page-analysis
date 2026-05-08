@@ -1,58 +1,40 @@
 # A/B Testing Analysis: Landing Page Experiment
 ### Project Overview
 
-This project analyzes an A/B testing experiment conducted by an e-commerce company to evaluate whether a newly designed landing page improves user conversion rates. Users were randomly assigned to either the control group (old landing page) or the treatment group (new landing page). The analysis focuses on determining whether the new page leads to a statistically significant increase in conversions.
+This project analyzes an A/B testing experiment conducted by an e-commerce company to evaluate whether a newly designed landing page improves user conversion rates. Users were randomly assigned to either the control group (old landing page) or the treatment group (new landing page). The analysis determines whether the new page leads to a statistically significant increase in conversions.
 
 ### Business Problem
 
-Companies frequently run A/B tests before launching product changes to all users. In this case, the company introduced a new landing page design and wanted to understand whether the change would improve conversions.
-
-The main question behind this experiment is:
 Does the new landing page increase the conversion rate compared to the existing page?
 
 ### Dataset
 
-The analysis uses two datasets:
+- ab_data.csv — Experiment data per user: group assignment, landing page shown, and conversion status.
+- countries.csv — Country location for each user.
 
-- ab_data.csv – Contains experiment data for each user, including group assignment, landing page shown, and whether the user converted.
-
-- countries.csv – Contains information about the country where each user is located.
-
-Together, these datasets allow us to analyze experiment performance and explore whether conversion behavior differs across regions.
+Post-cleaning dataset size: 288,540 users (duplicates and mismatched group/page assignments removed).
 
 ### Analysis Approach
 
 The project follows a structured data analysis workflow:
 
-- Loading and exploring the experiment dataset
-
-- Cleaning the data and removing duplicate users
-
-- Validating the experiment setup by checking group and landing page assignments
-
-- Calculating conversion rates for control and treatment groups
-
-- Performing hypothesis testing using a two-proportion Z-test
-
-- Analyzing conversion behavior across different countries
-
-- Running a logistic regression model to evaluate the effect of the landing page on conversion probability
+- Data loading, exploration, and cleaning
+- Experiment validation — checking group and page assignment consistency
+- Conversion rate calculation for control vs. treatment groups
+- Hypothesis testing using a two-proportion Z-test (two-tailed)
+- Country-level segmentation with statistical validation
+- Logistic regression to control for geography and confirm page effect
 
 ### Key Results
 
-The conversion rate for the control group (old landing page) was approximately 12.03%, while the treatment group (new landing page) had a conversion rate of about 11.87%.
+The control group (old landing page) had a conversion rate of 12.03%, while the treatment group (new landing page) had a conversion rate of 11.87%, a difference of −0.16 percentage points. A two-proportion Z-test (two-tailed) returned a Z-statistic of −1.29 and a p-value of 0.196. Since the p-value exceeds the 0.05 significance threshold, the difference is not statistically significant. The 95% confidence interval for the difference is [−0.39 pp, +0.08 pp], which includes zero, further confirming the result.
+Country-level Z-tests showed no significant difference across US (p = 0.142), CA (p = 0.187), or UK (p = 0.649). Logistic regression confirmed that neither the page variant nor user geography is a statistically significant predictor of conversion.
 
-A two-proportion Z-test was conducted to determine whether this difference is statistically significant.
 
-- Z-score: -1.29
+### Conclusion
 
-- P-value: 0.1956
+There is no statistical evidence that the new landing page improves conversion rates. Results are consistent across the Z-test, confidence interval, and logistic regression. The recommendation is to retain the existing landing page or pursue alternative design changes in future experiments.
 
-Since the p-value is greater than the significance level of 0.05, the difference between the two landing pages is not statistically significant.
-
-Country-level analysis also showed similar conversion behavior across the United States, United Kingdom, and Canada.
-
-Logistic regression results further confirmed that the landing page variable is not a statistically significant predictor of conversion.
 
 ### Visualizations
 Conversion Rate by Group
@@ -64,12 +46,6 @@ Conversion Rate by Country
 
 ![Conversion Rate by Country](visuals/conversion_rate_by_country.png)
 
-
-### Conclusion
-
-Based on the analysis, there is no strong statistical evidence that the new landing page improves conversion rates. Although the old page shows a slightly higher conversion rate, the difference is small and not statistically significant.
-
-The results suggest that the company should continue using the existing landing page or consider testing alternative design changes in future experiments.
 
 ### Tools Used
 
